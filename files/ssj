@@ -1,0 +1,1 @@
+xhost +local:root && docker run --init --rm --shm-size=4g --workdir=/root --hostname=ssj --net=host --privileged -e DISPLAY -v $HOME/.ssj:/root ghcr.io/thirdbyte/ssj:latest terminator && if ! ps aux | grep '[d]ocker' | grep -q 'ssj'; then xhost -local:root; fi

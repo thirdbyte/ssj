@@ -1,0 +1,22 @@
+name: Docker
+
+on:
+  push:
+    branches:    
+      - 'main'
+    paths:
+      - '.ver'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: docker login
+        env:
+          DOCKER_PASSWORD: ${{ secrets.GIT_TOKEN_MAIN }}  
+        run: docker login ghcr.io -u thirdbyte -p $DOCKER_PASSWORD
+      - name: docker build
+        run: docker build -t ghcr.io/thirdbyte/ssj:latest .
+      - name: docker push
+        run: docker push ghcr.io/thirdbyte/ssj:latest
